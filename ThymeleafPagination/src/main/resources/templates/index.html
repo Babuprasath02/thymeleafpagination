@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Insert Title Here</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	</head>
+	<body>
+		
+		<div class="container">
+			<div class="card">
+				<div class="card-block">
+					<a th:href="@{/showNewCountryForm}" class="btn btn-primary btn-sm mb-3"> Add Country </a>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Country</th>
+								<th>Capital
+								</th>
+								<th>Actions</th>
+							</tr>
+							
+						</thead>
+						<tbody>
+							<tr th:each="country:${data.content}">
+								<td th:text="${country.id}"></td>
+								<td th:text="${country.name}"></td>
+								<td th:text="${country.capital}"></td>
+								<td>
+							<a th:href="@{/showFormforUpdate/{id}(id=${country.id})}" class="btn btn-primary">Update</a>
+							<a th:href="@{/deleteCountry/{id}(id=${country.id})}"class="btn btn-danger">Delete</a>
+						</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr/>
+					<ul class="nav nav-pills">
+						<li class="nav-item" th:each="i : ${#numbers.sequence(0,data.totalPages-1)}">
+							<a th:href="@{/(page=${i})}" th:text=${i} th:classappend="${currentPage}==${i}?'active'" class="nav-link"></a>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
